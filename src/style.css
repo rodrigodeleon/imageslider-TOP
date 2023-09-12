@@ -13,6 +13,25 @@ body {
     sans-serif;
 }
 
-.test {
-  background-color: red;
+#content 
+{
+  padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 50vh;
+  background-color: antiquewhite;
+}
+#mainFrame {
+  height: 70%;
+  background-color: aliceblue;
+}
+img {
+  width: 200px;
+}
+#slides {
+  display: flex;
+  width: fit-content;
+  height: 30%;
+  background-color: azure;
 }
