@@ -4,6 +4,7 @@ const mainFrame = document.querySelector('#mainFrame');
 const slides = document.querySelector('#slides');
 
 function loadPictures() {
+  const controls = document.querySelector('#controls');
   const sources = [
     'pic1.jpg',
     'pic2.jpg',
@@ -14,28 +15,64 @@ function loadPictures() {
   ];
   sources.forEach((picture) => {
     // eslint-disable-next-line import/no-dynamic-require, global-require
-    const photo = require(`./pictures/${picture}`);
+    const photoSrc = require(`./pictures/${picture}`);
     const myImg = document.createElement('img');
     myImg.classList.add('photoSlides');
-    myImg.setAttribute('src', photo);
-    myImg.addEventListener('click', (e) => showPhoto(e.target.src));
+    myImg.setAttribute('src', photoSrc);
+
     slides.appendChild(myImg);
 
-    const controls = document.querySelector('#controls');
+    if (mainFrame.innerHTML === '') {
+      showPhoto(photoSrc);
+    }
+
     const dot = document.createElement('div');
     dot.classList.add('dot');
-    dot.setAttribute('id', photo);
+    dot.setAttribute('id', myImg.src);
     controls.appendChild(dot);
 
-    if (mainFrame.innerHTML === '') showPhoto(photo);
+    dot.addEventListener('click', (e) => {
+      updateSlider(e.target.id);
+    });
+
+    myImg.addEventListener('click', (e) => {
+      updateSlider(e.target.src);
+    });
   });
 }
-function showPhoto(photoid) {
+
+function updateSlider(picSrc) {
+  showPhoto(picSrc);
+  toggleClicked(picSrc);
+}
+
+function showPhoto(picSrc) {
   const myImg = document.createElement('img');
-  myImg.src = photoid;
+  myImg.src = picSrc;
   myImg.classList.add('photoMain');
   mainFrame.innerHTML = '';
   mainFrame.append(myImg);
+}
+
+function toggleClicked(picSrc) {
+  toggleDots(picSrc);
+  toggleSlides(picSrc);
+}
+
+function toggleSlides(picSrc) {
+  const mySlides = document.querySelectorAll('.photoSlides');
+  mySlides.forEach((slide) => {
+    if (slide.src !== picSrc) slide.classList.remove('clickedPic');
+    else slide.classList.toggle('clickedPic');
+  });
+}
+function toggleDots(dotSrc) {
+  const dots = document.querySelectorAll('.dot');
+  dots.forEach((element) => {
+    element.classList.remove('clickedDot');
+  });
+  const myDot = document.getElementById(dotSrc);
+  myDot.classList.toggle('clickedDot');
 }
 
 function createCarousel() {
@@ -44,5 +81,5 @@ function createCarousel() {
   left.addEventListener('click', () => console.log('left'));
   right.addEventListener('click', () => console.log('right'));
 }
-createCarousel();
+// createCarousel();
 loadPictures();

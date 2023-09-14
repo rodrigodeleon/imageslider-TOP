@@ -32,6 +32,7 @@ body {
   width: 200px;
   padding: 0.3rem 0;
   aspect-ratio: auto;
+  opacity: 50%;
 }
 .photoMain {
   display: flex;
@@ -52,10 +53,20 @@ body {
   justify-content: center;
   align-items: center;
 }
+
 .dot {
   height: 0.7rem;
   width: 0.7rem;
   background-color: cadetblue;
   border: 1px none;
   border-radius: 5px;
+}
+.clickedDot {
+  width: 1rem;
+  height: 1rem;
+  background-color: gold;
+}
+
+.clickedPic {
+  opacity: 100%;
 }
