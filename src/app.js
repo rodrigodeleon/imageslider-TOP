@@ -65,7 +65,7 @@ function loadSlider() {
   }
 }
 
-document.onkeydown = function (e) {
+document.onkeydown = (e) => {
   switch (e.keyCode) {
     case 37:
       showPrevious();
@@ -137,3 +137,6 @@ function toggleDots(dotSrc) {
 }
 
 loadSlider();
+setInterval(() => {
+  showNext();
+}, 5000);
