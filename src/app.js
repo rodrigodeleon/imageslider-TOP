@@ -3,9 +3,10 @@ import './style.css';
 const mainFrame = document.querySelector('#mainFrame');
 const slides = document.querySelector('#slides');
 
-function loadPictures() {
+function loadSlider() {
   const controls = document.querySelector('#controls');
   const sources = [
+    // pictures file names to be imported
     'pic1.jpg',
     'pic2.jpg',
     'pic3.jpg',
@@ -22,10 +23,6 @@ function loadPictures() {
 
     slides.appendChild(myImg);
 
-    if (mainFrame.innerHTML === '') {
-      showPhoto(photoSrc);
-    }
-
     const dot = document.createElement('div');
     dot.classList.add('dot');
     dot.setAttribute('id', myImg.src);
@@ -39,6 +36,38 @@ function loadPictures() {
       updateSlider(e.target.src);
     });
   });
+
+  const navLeft = document.createElement('nav');
+  navLeft.classList.add('btnCarousel');
+  navLeft.setAttribute('id', 'navLeft');
+  navLeft.innerHTML = '<';
+  const navRight = document.createElement('nav');
+  navRight.classList.add('btnCarousel');
+  navRight.setAttribute('id', 'navRight');
+  navRight.innerHTML = '>';
+  controls.prepend(navLeft);
+  controls.append(navRight);
+
+  navRight.addEventListener('click', () => {
+    const selectedPic = document.querySelector('.clickedPic');
+    const nextPicSrc = selectedPic.nextSibling.src;
+    showPhoto(nextPicSrc);
+    updateSlider(nextPicSrc);
+  });
+
+  navLeft.addEventListener('click', () => {
+    const selectedPic = document.querySelector('.clickedPic');
+    const prevPicSrc = selectedPic.previousSibling.src;
+    showPhoto(prevPicSrc);
+    updateSlider(prevPicSrc);
+  });
+
+  if (mainFrame.innerHTML === '') {
+    const mySlides = document.querySelectorAll('.photoSlides');
+    const photoSrc = mySlides[0].src;
+    showPhoto(photoSrc);
+    updateSlider(photoSrc);
+  }
 }
 
 function updateSlider(picSrc) {
@@ -63,7 +92,7 @@ function toggleSlides(picSrc) {
   const mySlides = document.querySelectorAll('.photoSlides');
   mySlides.forEach((slide) => {
     if (slide.src !== picSrc) slide.classList.remove('clickedPic');
-    else slide.classList.toggle('clickedPic');
+    else slide.classList.add('clickedPic');
   });
 }
 function toggleDots(dotSrc) {
@@ -75,11 +104,4 @@ function toggleDots(dotSrc) {
   myDot.classList.toggle('clickedDot');
 }
 
-function createCarousel() {
-  const left = document.querySelector('#left');
-  const right = document.querySelector('#right');
-  left.addEventListener('click', () => console.log('left'));
-  right.addEventListener('click', () => console.log('right'));
-}
-// createCarousel();
-loadPictures();
+loadSlider();

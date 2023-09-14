@@ -18,7 +18,7 @@ body {
   padding: 5rem;
   display: flex;
   flex-direction: column;
-  width: 70%;
+  width: 50%;
   height: 70vh;
 }
 #mainFrame {
@@ -60,13 +60,24 @@ body {
   background-color: cadetblue;
   border: 1px none;
   border-radius: 5px;
+  cursor: pointer;
 }
 .clickedDot {
-  width: 1rem;
-  height: 1rem;
+  width: 0.9rem;
+  height: 0.9rem;
   background-color: gold;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 .clickedPic {
   opacity: 100%;
+}
+
+.btnCarousel {
+  font-size: xx-large;
+  font-weight: bolder;
+  color: grey;
+  margin: 0 0.5rem;
+  cursor: pointer;
 }
