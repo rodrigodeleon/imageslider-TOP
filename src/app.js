@@ -1,32 +1,48 @@
 import './style.css';
-import pic1 from './pictures/pic1.jpg';
 
-// const path = require('path');
-// const fs = require('fs');
-
-// const directoryPath = path.join(__dirname, 'pictures');
-// fs.readdir(directoryPath, function (err, files) {
-//     if (err) {
-//         return console.log('Unable to scan directory: ' + err);
-//     }
-//     files.forEach(function (file) {
-//         console.log(file.pa);
-//     });
-// });
-
-const content = document.querySelector('#content');
 const mainFrame = document.querySelector('#mainFrame');
 const slides = document.querySelector('#slides');
-function loadContent() {
-  const sources = ['pic1.jpg', 'pic2.jpg', 'pic3.jpg', 'pic4.jpg'];
+
+function loadPictures() {
+  const sources = [
+    'pic1.jpg',
+    'pic2.jpg',
+    'pic3.jpg',
+    'pic4.jpg',
+    'pic5.jpg',
+    'pic6.jpg',
+  ];
   sources.forEach((picture) => {
+    // eslint-disable-next-line import/no-dynamic-require, global-require
     const photo = require(`./pictures/${picture}`);
     const myImg = document.createElement('img');
+    myImg.classList.add('photoSlides');
     myImg.setAttribute('src', photo);
+    myImg.addEventListener('click', (e) => showPhoto(e.target.src));
     slides.appendChild(myImg);
+
+    const controls = document.querySelector('#controls');
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    dot.setAttribute('id', photo);
+    controls.appendChild(dot);
+
+    if (mainFrame.innerHTML === '') showPhoto(photo);
   });
 }
-loadContent();
-function createCarousel() {}
+function showPhoto(photoid) {
+  const myImg = document.createElement('img');
+  myImg.src = photoid;
+  myImg.classList.add('photoMain');
+  mainFrame.innerHTML = '';
+  mainFrame.append(myImg);
+}
 
-function loadToMain() {}
+function createCarousel() {
+  const left = document.querySelector('#left');
+  const right = document.querySelector('#right');
+  left.addEventListener('click', () => console.log('left'));
+  right.addEventListener('click', () => console.log('right'));
+}
+createCarousel();
+loadPictures();
