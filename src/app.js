@@ -49,10 +49,7 @@ function loadSlider() {
   controls.append(navRight);
 
   navRight.addEventListener('click', () => {
-    const selectedPic = document.querySelector('.clickedPic');
-    const nextPicSrc = selectedPic.nextSibling.src;
-    showPhoto(nextPicSrc);
-    updateSlider(nextPicSrc);
+    showNext();
   });
 
   navLeft.addEventListener('click', () => {
@@ -81,6 +78,13 @@ function showPhoto(picSrc) {
   myImg.classList.add('photoMain');
   mainFrame.innerHTML = '';
   mainFrame.append(myImg);
+}
+
+function showNext() {
+  const selectedPic = document.querySelector('.clickedPic');
+  const nextPicSrc = selectedPic.nextSibling.src;
+  showPhoto(nextPicSrc);
+  updateSlider(nextPicSrc);
 }
 
 function toggleClicked(picSrc) {
