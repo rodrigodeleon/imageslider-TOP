@@ -36,8 +36,9 @@ body {
 .photoMain {
   display: flex;
   width: auto;
-  border-radius: 15px;
+  border-radius: 5px;
   border: 1px cadetblue solid;
+  box-shadow: 0 4px 2px -2px gray;
 }
 #slides {
   display: flex;
@@ -77,6 +78,8 @@ body {
 .clickedPic {
   opacity: 100%;
   transition: opacity 300ms ease-in-out;
+  transform: scale(1.05);
+  box-shadow: 0 4px 2px -2px gray;
 }
 
 .btnCarousel {
@@ -87,6 +90,12 @@ body {
   cursor: pointer;
 }
 
-.btnCarousel:hover {
+.btnCarousel:hover,
+.dot:hover {
   color: goldenrod;
+  transform: scale(1.3);
+}
+.photoSlides:hover {
+  transform: scale(1.05);
+  opacity: 80%;
 }

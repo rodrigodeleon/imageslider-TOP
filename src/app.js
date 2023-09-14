@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import './style.css';
 
 const mainFrame = document.querySelector('#mainFrame');
@@ -53,10 +54,7 @@ function loadSlider() {
   });
 
   navLeft.addEventListener('click', () => {
-    const selectedPic = document.querySelector('.clickedPic');
-    const prevPicSrc = selectedPic.previousSibling.src;
-    showPhoto(prevPicSrc);
-    updateSlider(prevPicSrc);
+    showPrevious();
   });
 
   if (mainFrame.innerHTML === '') {
@@ -66,6 +64,18 @@ function loadSlider() {
     updateSlider(photoSrc);
   }
 }
+
+document.onkeydown = function (e) {
+  switch (e.keyCode) {
+    case 37:
+      showPrevious();
+      break;
+
+    case 39:
+      showNext();
+      break;
+  }
+};
 
 function updateSlider(picSrc) {
   showPhoto(picSrc);
@@ -78,6 +88,17 @@ function showPhoto(picSrc) {
   myImg.classList.add('photoMain');
   mainFrame.innerHTML = '';
   mainFrame.append(myImg);
+  mainFrame.animate(
+    [
+      // keyframes
+      { opacity: '0.8' },
+      { opacity: '1' },
+    ],
+    // timing options
+    {
+      duration: 300,
+    },
+  );
 }
 
 function showNext() {
@@ -85,6 +106,13 @@ function showNext() {
   const nextPicSrc = selectedPic.nextSibling.src;
   showPhoto(nextPicSrc);
   updateSlider(nextPicSrc);
+}
+
+function showPrevious() {
+  const selectedPic = document.querySelector('.clickedPic');
+  const prevPicSrc = selectedPic.previousSibling.src;
+  showPhoto(prevPicSrc);
+  updateSlider(prevPicSrc);
 }
 
 function toggleClicked(picSrc) {
